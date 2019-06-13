@@ -2,9 +2,12 @@ package com.londonappbrewery.climapm;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.json.JSONObject;
 
 
 public class WeatherController extends AppCompatActivity {
@@ -62,10 +65,33 @@ public class WeatherController extends AppCompatActivity {
 
 
     // TODO: Add letsDoSomeNetworking(RequestParams params) here:
+    private void letsDoSomeNetworking(RequestParams params){
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get( WEATHER_URL,params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d(LOGCAT_TAG,"Sucess! JSON: "+response.toString());
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable
+                    throwable, JSONObject errorResponse) {
+                Log.e(LOGCAT_TAG,"Fail "+throwable.toString());
+                Log.d(LOGCAT_TAG,"Status code "+ statusCode);
+            }
+        });
+    }
 
 
 
     // TODO: Add updateUI() here:
+    private void updateUI(WeatherDataModel weatherData){
+        mTextViewCity.setText(weatherData.getCity());
+        mTextViewTemperature.setText(weatherData.getTemperature());
+        int resourceID =
+                getResources().getIdentifier(weatherData.getIconName(), "drawable",getPackageName(
+                ));
+        mImageViewSky.setImageResource(resourceID);
+    }
 
 
 
