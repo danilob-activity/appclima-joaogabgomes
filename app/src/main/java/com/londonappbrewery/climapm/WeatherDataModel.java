@@ -63,17 +63,4 @@ public class WeatherDataModel {
         return mIconName;
     }
 
-    // TODO: Declare the member variables here
-
-
-    // TODO: Create a WeatherDataModel from a JSON:
-
-
-    // TODO: Uncomment to this to get the weather image name from the condition:
-
-
-    // TODO: Create getter methods for temperature, city, and icon name:
-
-
-
 }
